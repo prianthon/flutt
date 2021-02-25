@@ -11,31 +11,36 @@ class application extends StatefulWidget {
 
 class _applicationState extends State<application> {
 
-  String textButton = '';
-
+  double drag = 1.0;
   void method1(value) {
     setState(() {
-      textButton = value;
+      drag = value;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Dummy Application',
       home: new Scaffold(
-        appBar: new AppBar(
+        appBar: AppBar(
           backgroundColor: Colors.green,
-          title: new Text('Button Widget'),
+          title: new Text('Drag Slider'),
         ),
-        body: new Column(
-          children: <Widget>[
-            new RaisedButton(onPressed: () {
-              method1('You Press Button');
-            },
-            child: new Text('Klik Button'),),
-            new FlatButton(onPressed: null, child: new Text('The Flat Button')),
-            new Text(textButton)
-          ],
+        body: new Center(
+          child: new Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              new Slider(value: drag,
+                  min: 1.0,
+                  max:10.0,
+                  onChanged: (double val) {
+                method1(val);
+                  }
+                  ),
+              new Text('value:$drag'),
+            ],
+          ),
         ),
       ),
     );
